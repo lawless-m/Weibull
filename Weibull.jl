@@ -14,14 +14,12 @@ function simplefit(xbar, svar)
     model = Model(solver=IpoptSolver())
     @variable(model, b, start = 1)
     @constraint(model, b >= 1)
-    #@NLobjective(model, Min, (log(gamma(1+2/b)) - 2log(gamma(1+1/b)) - log(xbar^2+svar^2) + 2log(xbar))^2)
-    @NLobjective(model, Min, (gamma(1+2/b) - 2gamma(1+1/b) - xbar^2+svar^2 + 2xbar)^2)
+    @NLobjective(model, Min, (log(gamma(1+2/b)) - 2log(gamma(1+1/b)) - log(xbar^2+svar^2) + 2log(xbar))^2) # we want to search for zero so square it an find the Minimim
     TT = STDOUT # save original STDOUT stream
     redirect_stdout()
     solve(model)
     redirect_stdout(TT) # restore STDOUT
     beta = getvalue(b)
-    #alpha = xbar / exp(log(gamma(1+1/beta)))
     alpha = xbar / gamma(1+1/beta)
     alpha, beta
 end
