@@ -5,10 +5,11 @@ uses JuMP instead of Goal seeker and Solver as described in
 https://www.real-statistics.com/distribution-fitting/distribution-fitting-via-maximum-likelihood/fitting-weibull-parameters-mle/
 
 ==#
+module Wiebull
 
-using Roots # Add.pkg("Roots")
 using JuMP
 using Ipopt
+using Distributions
 
 function simplefit(xbar, svar)
     model = Model(solver=IpoptSolver())
@@ -46,3 +47,6 @@ function fit(samples)
 
     alpha, beta
 end
+
+################
+end # module
