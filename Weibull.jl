@@ -9,7 +9,6 @@ module Wiebull
 
 using JuMP
 using Ipopt
-using Distributions
 
 function simplefit(xbar, svar)
     model = Model(solver=IpoptSolver())
